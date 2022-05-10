@@ -13,6 +13,7 @@ class RestaurantsController < ApplicationController
   # GET /restaurants/new
   def new
     @restaurant = Restaurant.new
+    authorize @restaurant
   end
 
   # GET /restaurants/1/edit
@@ -23,6 +24,7 @@ class RestaurantsController < ApplicationController
   def create
     @restaurant = Restaurant.new(restaurant_params)
     @restaurant.user = current_user
+    authorize @restaurant
 
     respond_to do |format|
       if @restaurant.save
@@ -62,6 +64,7 @@ class RestaurantsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant
       @restaurant = Restaurant.find(params[:id])
+      authorize @restaurant
     end
 
     # Only allow a list of trusted parameters through.
